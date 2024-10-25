@@ -1,0 +1,12 @@
+{
+  "name": "nenchat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ashpect/nenchat.git",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}
