@@ -1,8 +1,12 @@
 from openai import OpenAI
+import os
+from dotenv import load_dotenv
 
-client = OpenAI(api_key="YOUR-API-KEY")
+load_dotenv()
+key=os.getenv("OPENAI_API_KEY")
 
 # Initialize OpenAI API Key
+client = OpenAI(api_key=key)
 
 # Define the states and associated tags
 states = {
