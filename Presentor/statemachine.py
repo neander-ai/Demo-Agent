@@ -1,6 +1,8 @@
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
+import json
+from state import State
 
 load_dotenv()
 key=os.getenv("OPENAI_API_KEY")
@@ -8,13 +10,24 @@ key=os.getenv("OPENAI_API_KEY")
 # Initialize OpenAI API Key
 client = OpenAI(api_key=key)
 
-# Define the states and associated tags
-states = {
-    "idle": ["waiting", "no operation"],
-    "processing": ["work", "process", "calculate"],
-    "error": ["failure", "issue", "problem"],
-    "completed": ["done", "finished", "complete"]
-}
+# Reading JSON file
+state_list = []
+general_order = []
+with open("states.json", "r") as file:
+    states = json.load(file)
+
+for state in states:
+    state_name = state.get("state_name")
+    tags = state.get("tags")
+    video_link = state.get("video_link")
+    audio_link = state.get("audio_link")
+    position = state.get("position")
+    state_list.append(State(state_name, tags, video_link, audio_link, position))
+
+    # Add in general order according to position
+    if position != -1:
+        general_order.append(state_list[-1])
+
 
 # Define the prompt template for the LLM
 prompt_template = """
@@ -31,7 +44,7 @@ Please return the state with the best match. Give one word answer
 # Define the function to get the best matching state
 def get_best_matching_state(states, input_command):
     # Format the states for the prompt
-    formatted_states = "\n".join([f"{state}: {', '.join(tags)}" for state, tags in states.items()])
+    formatted_states = "\n".join([f"{state.state_name}: {', '.join(state.tags)}" for state in states])
     prompt = prompt_template.format(states=formatted_states, input_command=input_command)
 
     # Call the OpenAI API
@@ -40,12 +53,12 @@ def get_best_matching_state(states, input_command):
 
     # Extract and return the best state from the response
     best_state = response.choices[0].text.strip()
-    return best_state
+    return next((state for state in states if state.state_name == best_state), None)
 
 # Main function to run the state machine
 def run_state_machine():
-    current_state = "idle"
-    print(f"Starting in state: {current_state}")
+    current_state = general_order[0]
+    print(f"Starting in state: {current_state.state_name}")
 
     while True:
         user_input = input("Enter a command (or type 'exit' to quit): ").strip()
@@ -54,13 +67,13 @@ def run_state_machine():
             break
 
         # Get the best matching state for the given command
-        next_state = get_best_matching_state(states, user_input)
+        next_state = get_best_matching_state(state_list, user_input)
 
-        if next_state in states:
-            print(f"Transitioning from '{current_state}' to '{next_state}' based on command: '{user_input}'")
+        if next_state in state_list:
+            print(f"Transitioning from '{current_state.state_name}' to '{next_state.state_name}' based on command: '{user_input}'")
             current_state = next_state
         else:
-            print(f"Could not find a valid state for command: '{user_input}'. Staying in '{current_state}'")
+            print(f"Could not find a valid state for command: '{user_input}'. Staying in '{current_state.state_name}'")
 
 # Run the state machine
 run_state_machine()
