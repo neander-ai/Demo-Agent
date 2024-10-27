@@ -1,0 +1,24 @@
+{ 
+    "company" : {
+        "id" : 123,
+        "products" : {
+            "name" : "shopify",
+            "product_description" : "e-commerce",
+            "sys_prompt" : "initial system prompt to start",
+            "events" : {
+                "login" : {
+                    "partition" : 0,
+                    "partition_order" : 1,
+                    "altname" : "login",
+                    "event_description" : "login event",
+                    "llm_text": "asasasas",
+                    "tags" : ["login", "authentication"],
+                    "video_url": "link",
+                    "vdeo_duration": "5:00",
+                    "audio_url": "link",
+                    "audio_duration": "5:00"
+                }
+            }
+        }
+    }
+}
