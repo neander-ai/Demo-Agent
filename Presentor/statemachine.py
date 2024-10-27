@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import json
 from state import State
 
-load_dotenv()
+load_dotenv(dotenv_path="../.env")
 key=os.getenv("OPENAI_API_KEY")
 
 # Initialize OpenAI API Key
