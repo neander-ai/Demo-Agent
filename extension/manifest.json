@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "NenChat Extension",
+  "version": "1.0",
+  "description": "Extension for NenChat Onboarding flow",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
