@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "NenChat Extension",
+  "name": "Website Activity Recorder",
   "version": "1.0",
-  "description": "Extension for NenChat Onboarding flow",
+  "description": "Records website activity using rrweb with reload persistence",
   "permissions": [
     "activeTab",
     "storage",
