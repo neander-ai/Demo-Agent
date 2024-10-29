@@ -1,0 +1,11 @@
+Sure, setting up your domain on Shopify is quite straightforward. You can follow these steps.
+
+Firstly, log into your Shopify account and navigate to the "Domains" section. It's typically located on the left-hand sidebar of your dashboard.
+
+Now, here you'll see a button that says "Set Domain" - click on it. You will then be prompted to enter the name of your domain. This is where you'll enter your required domain name. So, for instance, if your shop's name is "Nature's Best," you might enter "naturesbest.com" or whatever the name you want for your e-commerce store. 
+
+As soon as you have entered your desired domain name, finalise your choice by clicking the "Okay" button. 
+
+That's it! You've successfully set up your domain on Shopify. It's crucial to make your domain name memorable and easy to type to make sure potential customers can easily find your store online.
+
+Would you like to proceed to the next demonstration, or do you have any questions about what I just explained?% 

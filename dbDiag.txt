@@ -1,0 +1,63 @@
++------------------+
+|    Company       |
++------------------+
+| id: Number       |
+| name: String     |
+| products:        |
+|   - ObjectId     |
+|     (Product)    |
++------------------+
+
+        1
+        |
+        |
+        N
++------------------+
+|    Product       |
++------------------+
+| name: String     |
+| product_desc:    |
+|   String         |
+| sys_prompt:      |
+|   String         |
+| company:         |
+|   ObjectId       |
+|   (Company)      |
++------------------+
+
+        1
+        |
+        |
+        N
++------------------+
+|    Event         |
++------------------+
+| name:            |
+|   String         |
+| partition:       |
+|   Number         |
+| partition_order: |
+|   Number         |
+| desc:            |
+|   String         |
+| llm_text:        |
+|   String         |
+| tags: [String]   |
+| video_url:       |
+|   String         |
+| video_duration:  |
+|   String         |
+| audio_url:       |
+|   String         |
+| audio_duration:  |
+|   String         |
+| product:         |
+|   ObjectId       |
+|   (Product)      |
+| company:         |
+|   ObjectId       |
+|   (Company)      |
++------------------+
+| Indexes:         |
+|   product: 1     |
++------------------+
