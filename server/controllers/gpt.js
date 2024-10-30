@@ -3,6 +3,7 @@ const { HumanMessage, SystemMessage } = require("@langchain/core/messages");
 const { StringOutputParser } = require("@langchain/core/output_parsers");
 const dotenv = require("dotenv");
 const path = require("path");
+const { error } = require("console");
 
 const envPath = path.join(__dirname, '..', '.env');
 dotenv.config({ path: envPath });
@@ -26,18 +27,23 @@ const sysMessage = new SystemMessage(`Product description means description of t
   Don't ask for anything else,.
   Just ask if they would like to move forward to the next demonstration or have any questions.`);
 
-const callGPT = async () => {
-  const messages = [
-    sysMessage,
-    new HumanMessage(`Product description : E-commerce wesbite shopify.com. 
-      Event Description : Click on the set domain button, then set your required domain and click okay.
-      Tags : Set domain, domain`),
-  ];
-
-  const result = await model.invoke(messages);
-  const result2 = await parser.invoke(result);
-    
-  return result2;
+const callGPT = async (req, res, next) => {
+  try{
+    console.log("Calling GPT");
+    const messages = [
+      sysMessage,
+      new HumanMessage(`Product description : E-commerce wesbite shopify.com. 
+        Event Description : Click on the set domain button, then set your required domain and click okay.
+        Tags : Set domain, domain`),
+    ];
+    const result = await model.invoke(messages);
+    const result2 = await parser.invoke(result);
+    res.json({ result: result2 });
+  } catch (error) {
+    console.error("Error calling GPT:", error);
+    next(error);
+  }
+  
 };
 
 module.exports = { callGPT };
