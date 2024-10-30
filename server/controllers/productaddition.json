@@ -1,0 +1,67 @@
+[
+    {
+        "script_url": "/productaddition/1clickonaddproduct.json",
+        "event_description": "clicking on add product",
+        "llm_text": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page.",
+        "tags": ["button click", "products", "add products"],
+        "script_duration": "5:00"
+    },
+    {
+        "script_url": "/productaddition/2namingtheproduct.json",
+        "event_description": "naming the product",
+        "llm_text": "Click on the textbox under title and give the product a title you want.",
+        "tags": ["product name", "title", "textbox"],
+        "script_duration": "5:00"
+
+    },
+    {
+        "script_url": "/productaddition/3usingaitogetproductdescription.json",
+        "event_description": "using ai to get product description",
+        "llm_text": "Click on the stars icon on the top left of the Description section and a dialog box opens up. Type a short prompt describing your product and give the bot a tone. Click on generate and wait for the LLM to give you a response. ",
+        "tags": ["AI", "dialog box", "product description", "prompt", "generate", "response"],
+        "script_duration": "5:00"
+    },
+    {
+        "script_url": "/productaddition/4uploadingimage.json",
+        "event_description": "uploading image",
+        "llm_text": "Under the media section, click on on the upload button and wait for the browser to open your file manager. Click on the picture you would like to upload and then click on upload. Wait for the picture to upload.",
+        "tags": ["media", "upload", "picture"],
+        "script_duration": "5:00"
+    },
+    {
+        "script_url": "/productaddition/5pricingtheproduct.json",
+        "event_description": "pricing the product",
+        "llm_text": "Under the pricing section, click on the price text box and add the desired price. Also add a compare-to price in the textbox next to this one. There is also an option to chage addition tax over this in a check box under these textboxes.",
+        "tags": ["pricing", "price", "textbox", "compare to price", "tax"],
+        "script_duration": "5:00"
+    },
+    {
+        "script_url": "/productaddition/6addingcostperitem.json",
+        "event_description": "adding cost per item",
+        "llm_text": "Under the cost per item section, click on the cost per item text box and add the cost per item. This will autocalculate profits and margin for you next to it.",
+        "tags": ["cost", "cost per item", "textbox", "profits", "margin"],
+        "script_duration": "5:00"
+    },
+    {
+        "script_url": "/productaddition/7clickingoncontinuewhenoutofstock.json",
+        "event_description": "clicking on continue when out of stock",
+        "llm_text": "This is a checkbox to continue selling when out of stock. This is available under the shop location section",
+        "tags": ["checkbox", "selling", "out of stock", "location"],
+        "script_duration": "5:00"
+    },
+    {
+        "script_url": "/productaddition/8addingshippingweight.json",
+        "event_description": "adding shipping weight",
+        "llm_text": "Under the shipping section, select the textbox for 'this is a physical product' and input the weight in kilograms in the textbox below this option.",
+        "tags": ["input text", "weight", "physical product", "shipping"],
+        "script_duration": "5:00"
+    },
+    {
+        "script_url": "/productaddition/9clickingonsavebutton.json",
+        "event_description": "clicking on save button",
+        "llm_text": "Click on save button on the bottom right corner of the page and wait for the product to be created.",
+        "tags": ["button click", "save"],
+        "script_duration": "5:00"
+    }
+
+]

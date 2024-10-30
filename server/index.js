@@ -2,11 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
-const cors = require("cors");
+// const cors = require("cors");
 const { scriptPlayer } = require("./controllers/scriptPlayer");
 const gptController = require("./controllers/gpt");
 const productController = require("./controllers/product");
+
 const { connectToMongoDB } = require("./models");
+
 
 const envPath = path.join(__dirname, "..", ".env");
 dotenv.config({ path: envPath });
@@ -14,7 +16,7 @@ dotenv.config({ path: envPath });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+
 app.use(express.json());
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
@@ -25,10 +27,11 @@ app.listen(PORT, () => {
 //Testing routes for frontend
 app.get("/api/messages", (req, res) => {
   // Return existing messages
-  res.json({ messages: ["Welcome!", "How can I help?"] });
+  res.json({ messages: ["Welcome!", "How can I hlp?"] });
 });
 
-app.post("/api/messages", gptController.callGPT);
+app.post("/api/messages", gptController.testGPT);
+app.post("/api/interrupt", gptController.interruptFunc);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -52,7 +55,7 @@ app.use((err, req, res, next) => {
 });
 
 // Route for testing llm text generation
-app.get("/getllmtext", gptController.callGPT);
+// app.get("/getllmtext", gptController.callGPT);
 
 // ONBOARDING
 // Endpoint to create a company

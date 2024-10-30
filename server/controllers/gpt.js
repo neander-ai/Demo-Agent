@@ -3,26 +3,7 @@ const { HumanMessage, SystemMessage } = require("@langchain/core/messages");
 const { StringOutputParser } = require("@langchain/core/output_parsers");
 const dotenv = require("dotenv");
 const path = require("path");
-const { error } = require("console");
-// const { State } = require("./state.js");
-
-// const statesData = require("../../extension/flows/productaddition.json");
-// const stateList = [];
-
-// statesData.forEach((state) => {
-//   const { script_url, event_description, llm_text, tags, script_duration } =
-//     state;
-//   const newState = new State(
-//     script_url,
-//     event_description,
-//     llm_text,
-//     tags,
-//     script_duration
-//   );
-//   stateList.push(newState);
-// });
-// const currentState = stateList[0]
-// const formattedStates = stateList.map((state) => `${state.event_description}: ${state.tags.join(", ")}`).join("\n");
+const { formattedStates, currentState } = require("./states");
 
 const envPath = path.join(__dirname, "..", ".env");
 dotenv.config({ path: envPath });
@@ -48,27 +29,53 @@ const sysMessage =
   Just ask if they would like to move forward to the next demonstration or have any questions.`);
 
 // this message should create a list of all present states and their tags
-// const stateMessage = new SystemMessage(
-//   `All the available events are : ${formattedStates}, you are currently on event: {current}, with the query as {message}, decide wether to switch to another event or explain a part of the current event better, if switching events, given a description of the new event`
-// );
+const stateMessage = new SystemMessage(
+  `All the available events are : ${formattedStates}, you are currently on event: ${currentState}, with the query as {message}, decide wether to switch to another event or explain a part of the current event better. Just give me the current state and switched state, nothing else`
+);
 
-const callGPT = async (req, res, next) => {
+const productDesc =  new HumanMessage(`Product description : E-commerce wesbite shopify.com. 
+  Event Description : Click on the set domain button, then set your required domain and click okay.
+  Tags : Set domain, domain`)
+
+const interruptFunc = async(req, res, next) => {
   try {
-    console.log("Calling GPT");
-
-    const messages = [
-      sysMessage,
-      new HumanMessage(`Product description : E-commerce wesbite shopify.com. 
-        Event Description : Click on the set domain button, then set your required domain and click okay.
-        Tags : Set domain, domain`),
-    ];
-    const result = await model.invoke(messages);
-    const result2 = await parser.invoke(result);
-    res.json({ result: result2 });
+    const { message } = req.body;
+    const systemMessage = stateMessage;
+    const result = await callGPT(systemMessage, message);
+    res.status(200).json({ result: result });
   } catch (error) {
     console.error("Error calling GPT:", error);
     next(error);
   }
+}
+
+const testGPT = async (req, res, next) => {
+  try {
+    const result = await callGPT(sysMessage, productDesc);
+    res.status(200).json({ result: result });
+  } catch (error) {
+    console.error("Error calling GPT:", error);
+    next(error);
+  }
+}
+
+const callGPT = async (systemMessage, humanMessage) => {
+  try {
+    console.log("Calling GPT");
+
+    const messages = [
+      systemMessage,
+      humanMessage
+    ];
+
+    const result = await model.invoke(messages);
+    const result2 = await parser.invoke(result);
+    
+    return result2;
+  } catch (error) {
+    console.error("Error calling GPT:", error);
+    throw error;
+  }
 };
 
-module.exports = { callGPT };
+module.exports = { testGPT , interruptFunc };
