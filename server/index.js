@@ -5,6 +5,7 @@ const path = require("path");
 const { connectToMongoDB, createSampleData } = require('./dbSetup');
 const { getProductWithEvents } = require('./dbHelpers');
 const { callGPT } = require('./gpt');
+const {scriptPlayer} = require('./routes/script_player');
 
 const envPath = path.join(__dirname, '..', '.env');
 dotenv.config({ path: envPath });
@@ -12,6 +13,7 @@ dotenv.config({ path: envPath });
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+app.use(express.json());
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
@@ -46,3 +48,5 @@ app.get("/getProductWithEvents", async (req, res) => {
     res.status(500).send("Failed to fetch product with events.");
   }
 });
+
+app.post("/scriptPlayer", scriptPlayer);
