@@ -1,0 +1,72 @@
+[
+  {
+    "script_url": "/discountcreation/1clickingoncreatediscount.json",
+    "event_description": "clicking on create discount",
+    "llm_text": "Click on the create discount button at the center of page till a popup box opens up to select discount type",
+    "tags": ["button click", "discount"],
+    "script_duration": "5:00"
+  },
+  {
+    "script_url": "/discountcreation/2clickingonfreeshipping.json",
+    "event_description": "clicking on free shipping button",
+    "llm_text": "Click on the free shipping button on the dialog box that opens up on clicking the create discount button. This opens a new create shipping discount page",
+    "tags": ["button click", "dialog box", "discount", "shipping"],
+    "script_duration": "5:00"
+  },
+  {
+    "script_url": "/discountcreation/3addingmanualdiscountcode.json",
+    "event_description": "manually entering discount code",
+    "llm_text": "Click on the discount code text box and type in your desired discount code. There is also a way to generate this discount code. This is in another step.",
+    "tags": ["manual", "discount", "text input"],
+    "script_duration": "5:00"
+  },
+  {
+    "script_url": "/discountcreation/4generatingdiscountcode.json",
+    "event_description": "generate the discount code",
+    "llm_text": "Click on the generate random code button above the discount code text box. This will generate a random discount code.",
+    "tags": ["automatic", "generation", "discount", "text input"],
+    "script_duration": "5:00"
+  },
+  {
+    "script_url": "/discountcreation/5selectingcountries.json",
+    "event_description": "select countries to apply discount",
+    "llm_text": "Click on selected countries radius button and an input text box opens up. Clicking on it opens up a dialog box and select the countries you want to apply the discount by typing into input text box the name of the country and autocompleting it out",
+    "tags": ["text input", "dialog box", "discount", "shipping", "radius button", "countries", "selection"],
+    "script_duration": "5:00"
+  },
+  {
+    "script_url": "/discountcreation/6addingminimumpurchaseamount.json",
+    "event_description": "input minimum purchase amount",
+    "llm_text": "click on minimum purchase amount radius button and then in the input box that opens up, type out the minimum purchase amount you want to apply the discount on.",
+    "tags": ["radius button", "text input", "minimum purchase amount", "discount"],
+    "script_duration": "5:00"
+  },
+  {
+    "script_url": "/discountcreation/7addingcustomersegments.json",
+    "event_description": "select customer segments",
+    "llm_text": "Under customer eligibility section, click on adding specific customer segments and then select the required customer segment. Customer segments are things like 'Email Subscribers' or 'Customers who have purchased atleast once' or 'Customers who have spent more than $1000'.",
+    "tags": ["dialog box", "discount", "customer segment", "eligibility", "segment", "selection"],
+    "script_duration": "5:00"
+  },
+  {
+    "script_url": "/discountcreation/8addinglimitondiscountuses.json",
+    "event_description": "add limit on discount uses",
+    "llm_text": "Under maximum discount uses section, click on the check box to 'add limit on maximum number of uses per customer'. Then an input box opens up and you can type in the maximum number of uses per customer.",
+    "tags": ["text input", "dialog box", "discount", "maximum discount uses", "uses", "selection"],
+    "script_duration": "5:00"
+  },
+  {
+    "script_url": "/discountcreation/9settinganenddate.json",
+    "event_description": "set an end date for discount",
+    "llm_text": "Under active dates section, click on set end date check box and click on end date 'date selector' and select date, do the same for time. ",
+    "tags": ["text input", "dialog box", "discount", "active dates", "selection", "date selector", "time selector"],
+    "script_duration": "5:00"
+  },
+  {
+    "script_url": "/discountcreation/10clickingonsavebutton.json",
+    "event_description": "click on save button for discount",
+    "llm_text": "Click on save discount button at the bottom right corner of the page and wait for the discount to be created.",
+    "tags": ["button click", "discount"],
+    "script_duration": "5:00"
+  }
+]

@@ -14,9 +14,11 @@
                     "llm_text": "asasasas",
                     "tags" : ["login", "authentication"],
                     "video_url": "link",
-                    "vdeo_duration": "5:00",
+                    "video_duration": "5:00",
                     "audio_url": "link",
-                    "audio_duration": "5:00"
+                    "audio_duration": "5:00",
+                    "script_url": "link",
+                    "script_duration": "5:00"
                 }
             }
         }
