@@ -72,3 +72,10 @@ document.getElementById('toggleRecord').addEventListener('click', async () => {
     setStatus('Error toggling recording');
   }
 });
+
+
+document.getElementById('newProduct').addEventListener('click', () => {
+  chrome.tabs.create({
+      url: chrome.runtime.getURL('product/product.html')
+  });
+});

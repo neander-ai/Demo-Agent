@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            width: 200px;
+            padding: 16px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #toggleRecord {
+            background: #4CAF50;
+            color: white;
+        }
+        #toggleRecord.recording {
+            background: #f44336;
+        }
+        #newProduct {
+            background: #2196F3;
+            color: white;
+        }
+        #newProduct:hover {
+            background: #1976D2;
+        }
+        #status {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <button id="toggleRecord">Start Recording</button>
+    <button id="newProduct">New Product +</button>
+    <div id="status"></div>
+    <script src="popup.js"></script>
+</body>
+</html>

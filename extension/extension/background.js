@@ -6,7 +6,7 @@ async function ensureContentScriptInjected(tabId) {
     // Inject rrweb first
     await chrome.scripting.executeScript({
       target: { tabId },
-      files: ['rrweb.min.js']
+      files: ['libs/rrweb.min.js']
     });
     
     // Then inject our content script

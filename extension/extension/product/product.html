@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="product-style.css"> 
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Product</h1>
+        
+        <div class="alert alert-success" id="successAlert"></div>
+        <div class="alert alert-error" id="errorAlert"></div>
+
+        <form id="productForm">
+            <div class="form-group">
+                <label for="companyName">Company Name</label>
+                <input type="text" id="companyName" name="companyName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="productName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productOverview">Product Overview</label>
+                <textarea id="productOverview" name="productOverview" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="productDescription">Product Description</label>
+                <textarea id="productDescription" name="productDescription" required></textarea>
+            </div>
+
+            <button type="submit" id="submitButton">Add Product</button>
+            <div class="loading" id="loadingIndicator">Submitting</div>
+        </form>
+    </div>
+    <script src="product.js"></script>
+</body>
+</html>
