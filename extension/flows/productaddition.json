@@ -1,18 +1,13 @@
 [
+
     {
-        "script_url": "/productaddition/1clickonaddproduct.json",
-        "event_description": "clicking on add product",
-        "llm_text": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page.",
-        "tags": ["button click", "products", "add products"],
-        "script_duration": "5:00"
-    },
-    {
+        "name" :"Naming Product",
+        "partition" : "product",
         "script_url": "/productaddition/2namingtheproduct.json",
         "event_description": "naming the product",
         "llm_text": "Click on the textbox under title and give the product a title you want.",
         "tags": ["product name", "title", "textbox"],
         "script_duration": "5:00"
-
     },
     {
         "script_url": "/productaddition/3usingaitogetproductdescription.json",

@@ -41,7 +41,7 @@ function ChatBox() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch("http://localhost:5001/api/messages");
+        const response = await fetch("http://localhost:3001/api/messages");
         const data = await response.json();
         setMessages(data.messages); // Assuming server response { messages: ["msg1", "msg2"] }
       } catch (error) {
@@ -55,9 +55,9 @@ function ChatBox() {
   // Handle sending a new message
   const handleSend = async () => {
     if (!input.trim()) return;
-
+    console.log("Sending message:", input);
     try {
-      const response = await fetch("http://localhost:5001/api/interrupt", {
+      const response = await fetch("http://localhost:3001/api/interrupt", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

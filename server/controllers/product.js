@@ -10,6 +10,8 @@ const addProduct = async (req, res, next) => {
 
     // Update the company with the new product
     await updateCompanyWithProduct(companyDoc, newProduct._id);
+    res.cookie("companyId", companyDoc._id.toString(), { httpOnly: true });
+    res.cookie("productId", newProduct._id.toString(), { httpOnly: true })
     res.status(201).json({ message: "Product and company saved successfully", product: newProduct });
   } catch (error) {
     console.error("Error adding product:", error);

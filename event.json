@@ -1,0 +1,10 @@
+{
+    "name": "Product Addition",
+    "partition" : "product",
+    "nextEventId" : null,
+    "heading": "clicking on add product",
+    "tags": ["button click", "products", "add products"],
+    "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page.",
+    "video_data": "",
+    "video_duration": "5:00"
+}

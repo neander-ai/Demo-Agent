@@ -3,8 +3,8 @@ const Event = require('./event'); // Import Event model for reference
 
 const productSchema = new mongoose.Schema({
   name: String,
+  product_overview: String,
   product_description: String,
-  sys_prompt: String,
   company: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' }
 });
 

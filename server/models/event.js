@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
   name: String,
-  partition: Number,
-  partition_order: Number,
-  description: String,
+  partition: String,
+  nextEventId: { type: mongoose.Schema.Types.Mixed, ref: 'Event', default: null },
+  event_description: String,
   llm_text: { type: String, default: null },
   tags: [String],
   video_data: { type: mongoose.Schema.Types.Mixed, default: null },
