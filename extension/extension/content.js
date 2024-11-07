@@ -20,7 +20,7 @@ setInterval(() => {
 // Message listener
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log('Content script received message:', message);
-  
+
   if (message.action === 'startRecording') {
     startRecording();
     sendResponse({ success: true });
@@ -40,10 +40,10 @@ async function startRecording() {
   try {
     isRecording = true;
     chrome.runtime.sendMessage({ type: 'recordingStarted' });
-    
+
     const data = await chrome.storage.local.get('events');
     events = data.events || [];
-    
+
     stopFn = rrweb.record({
       emit(event) {
         events.push(event);
@@ -58,25 +58,17 @@ async function startRecording() {
   }
 }
 
-function stopRecording() {
+async function stopRecording() {
   if (stopFn) {
     stopFn();
     stopFn = null;
     isRecording = false;
-    
-    chrome.runtime.sendMessage({ type: 'recordingStopped' });
-    
     const timestamp = new Date().toISOString();
     const filename = `recording-${timestamp}.json`;
-    
-    const blob = new Blob([JSON.stringify(events)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-    
+    const blob = [JSON.stringify(events)];
+    chrome.storage.local.set({filename: filename, file: blob});
+    chrome.runtime.sendMessage({ type: 'recordingStopped', filename: filename });
+
     events = [];
     chrome.storage.local.remove('events');
   }

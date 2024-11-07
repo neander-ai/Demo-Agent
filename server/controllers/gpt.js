@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const { formattedStates, currentState } = require("./states");
 
+//TODO: FIX @ashpect
 const envPath = path.join(__dirname, "..", ".env");
 dotenv.config({ path: envPath });
 

@@ -61,6 +61,10 @@ app.post("/api/companies", async (req, res) => {
 // The request body should contain both the company and product details.
 app.post("/api/addProduct", productController.addProduct);
 
+app.post("/api/addEvent", productController.addEvent);
+
+app.get("/api/flows", productController.getFlows);
+
 // Endpoint to create an event
 app.post("/api/addEvent", async (req, res) => {
   try {

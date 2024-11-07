@@ -36,6 +36,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       isRecording: false,
       recordingTabId: null 
     });
+    chrome.tabs.create({
+      url: chrome.runtime.getURL(`recording/recording.html?filename=${message.filename}`),
+    });
   } else if (message.type === 'ensureInjected') {
     ensureContentScriptInjected(message.tabId)
       .then(success => sendResponse({ success }));

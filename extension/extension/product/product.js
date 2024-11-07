@@ -35,7 +35,7 @@ form.addEventListener('submit', async (e) => {
     };
 
     try {
-        const response = await fetch('/api/addProduct', {
+        const response = await fetch('http://localhost:3001/api/addProduct', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -47,6 +47,7 @@ form.addEventListener('submit', async (e) => {
 
         if (response.ok) {
             showAlert(successAlert, 'Product added successfully!');
+            window.location.href = "../eventlist/eventlist.html";
             form.reset();
         } else {
             throw new Error(data.message || 'Failed to add product');
