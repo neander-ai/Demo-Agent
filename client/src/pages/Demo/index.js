@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import rrwebPlayer from "rweb-player";
 
 // Component to render rrweb DOM content
 function DomRenderer() {
   const [htmlContent, setHtmlContent] = useState("");
+  const playerContainerRef = useRef(null);
 
   useEffect(() => {
     // Fetch initial DOM snapshot from the server
@@ -17,6 +19,27 @@ function DomRenderer() {
     };
 
     fetchDomSnapshot();
+  }, []);
+
+  useEffect(() => {
+    // Fetch and play rrweb script
+    const fetchAndPlayRrwebScript = async () => {
+      try {
+        const response = await fetch('path/to/rrweb-script.json')
+        const rrwebScript = await response.json()
+
+        new rrwebPlayer({
+          target: playerConatinerRef.current,
+          props:{
+            events: rrwebScript,
+          },
+        });
+      } catch (error) {
+        console.error('Failed to fetch or play rrweb script:', error)
+      }
+    };
+
+    fetchAndPlayRrwebScript();
   }, []);
 
   return (
