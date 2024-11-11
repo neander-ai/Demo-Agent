@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
 // const cors = require("cors");
-const { scriptPlayer } = require("./controllers/scriptPlayer");
+const scriptController = require("./controllers/scriptPlayer");
 const gptController = require("./utils/gpt");
 const productController = require("./controllers/product");
 const eventController = require("./controllers/event");
@@ -71,7 +71,7 @@ app.get("/api/flows", productController.getFlows);
 // GPT API
 app.post("/api/messages", gptController.testGPT);
 app.post("/api/interrupt", gptController.interruptFunc);
-app.get("/api/dom-snapshot", scriptPlayer.getDomSnapshot);
+app.get("/api/dom-snapshot", scriptController.getDomSnapshot);
 
 // DEMO SIDE
 app.get("/getProductWithEvents", async (req, res) => {
