@@ -7,6 +7,7 @@ const path = require("path");
 const { scriptPlayer } = require("./controllers/scriptPlayer");
 const gptController = require("./controllers/gpt");
 const productController = require("./controllers/product");
+const eventController = require("./controllers/event");
 const { connectToMongoDB } = require("./models");
 
 const envPath = path.join(__dirname, "..", ".env");
@@ -15,8 +16,10 @@ dotenv.config({ path: envPath });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   connectToMongoDB();
@@ -61,53 +64,9 @@ app.post("/api/companies", async (req, res) => {
 // The request body should contain both the company and product details.
 app.post("/api/addProduct", productController.addProduct);
 
-app.post("/api/addEvent", productController.addEvent);
+app.post("/api/addEvent", eventController.addEvent);
 
 app.get("/api/flows", productController.getFlows);
-
-// Endpoint to create an event
-app.post("/api/addEvent", async (req, res) => {
-  try {
-    const {
-      name,
-      partition,
-      nextEventId,
-      heading,
-      tags,
-      description,
-      video_data,
-      video_duration,
-    } = req.body;
-    // check if productId cookie is set
-
-    const cookieProductId = req.cookies.productId;
-    if(!cookieProductId) {
-      return res.status(400).send("Product ID not found in cookies");
-    }
-
-    // Create the event with the product ID
-    const event = new Event({
-      name,
-      partition,
-      nextEventId,
-      heading,
-      tags,
-      description,
-      llm_text,
-      video_data,
-      video_duration,
-      audio_data : null,
-      audio_duration : null,
-      product_id : cookieProductId
-    });
-
-    await event.save();
-    res.status(201).send(event);
-  } catch (error) {
-    console.error("Error creating event:", error);
-    res.status(500).send("Failed to create event.");
-  }
-});
 
 // GPT API
 app.post("/api/messages", gptController.testGPT);
