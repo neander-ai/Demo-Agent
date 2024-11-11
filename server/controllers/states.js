@@ -1,6 +1,3 @@
-// Switch to a function which retrieves this fromm db.
-// and set states/curent state etc specific to a single demo flow.
-
 const State = require("./state");
 const statesData = require("./productaddition.json");
 const stateList = [];
