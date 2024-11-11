@@ -8,9 +8,11 @@ const Event = require('./event');
 const envPath = path.join(__dirname, '..', '.env');
 dotenv.config({ path: envPath });
 
-const mongoURI = process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD
-  ? `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`
-  : `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`;
+// const mongoURI = process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD
+//   ? `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`
+//   : `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`;
+
+const mongoURI = "mongodb://khushal2004agrawal:1234567890@cluster0-shard-00-00.5ezkb.mongodb.net:27017,cluster0-shard-00-01.5ezkb.mongodb.net:27017,cluster0-shard-00-02.5ezkb.mongodb.net:27017/?ssl=true&replicaSet=atlas-k2zp20-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0";
 
 const connectToMongoDB = async () => {
   try {

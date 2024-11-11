@@ -1,50 +1,47 @@
 import React, { useEffect, useRef, useState } from "react";
-import rrwebPlayer from "rweb-player";
+import rrwebPlayer from "rrweb-player";
+import "rrweb-player/dist/style.css";
 
 // Component to render rrweb DOM content
 function DomRenderer() {
-  const [htmlContent, setHtmlContent] = useState("");
+  const [script, setScript] = useState(null);
   const playerContainerRef = useRef(null);
 
-  useEffect(() => {
-    // Fetch initial DOM snapshot from the server
-    const fetchDomSnapshot = async () => {
-      try {
-        const response = await fetch("/api/dom-snapshot");
-        const data = await response.json();
-        setHtmlContent(data.html); // Assuming the response has { html: "<div>...</div>" }
-      } catch (error) {
-        console.error("Error fetching DOM snapshot:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchScript = async () => {
+  //     try {
+  //       const response = await fetch("/api/dom-snapshot");
+  //       const rrwebScript = await response.json();
 
-    fetchDomSnapshot();
-  }, []);
+  //       setScript(rrwebScript);
+  //     } catch (error) {
+  //       console.error("Failed to fetch or play rrweb script:", error);
+  //     }
+  //   };
+
+  //   fetchScript();
+  // }, []);
 
   useEffect(() => {
     // Fetch and play rrweb script
-    const fetchAndPlayRrwebScript = async () => {
-      try {
-        const response = await fetch('path/to/rrweb-script.json')
-        const rrwebScript = await response.json()
+    // const fetchAndPlayRrwebScript = async () => {
+    //   try {
 
-        new rrwebPlayer({
-          target: playerConatinerRef.current,
-          props:{
-            events: rrwebScript,
-          },
-        });
-      } catch (error) {
-        console.error('Failed to fetch or play rrweb script:', error)
-      }
-    };
-
-    fetchAndPlayRrwebScript();
-  }, []);
+    //   } catch (error) {
+    //     console.error("Failed to fetch or play rrweb script:", error);
+    //   }
+    // };
+    if (!script) return;
+    new rrwebPlayer({
+      target: playerContainerRef.current,
+      props: { events: script },
+    });
+    // fetchAndPlayRrwebScript();
+  }, [script]);
 
   return (
     <div
-      dangerouslySetInnerHTML={{ __html: htmlContent }}
+      ref={playerContainerRef}
       style={{
         border: "1px solid black",
         padding: "10px",
@@ -64,9 +61,19 @@ function ChatBox() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/messages");
+        console.log("Fetching messages...");
+        const response = await fetch("/api/messages", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await response.json();
-        setMessages(data.messages); // Assuming server response { messages: ["msg1", "msg2"] }
+        console.log("Response received");
+        console.log(data);
+        if (data.result) {
+          setMessages([data.result]);
+        } // Assuming server response { messages: ["msg1", "msg2"] }
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
@@ -79,8 +86,10 @@ function ChatBox() {
   const handleSend = async () => {
     if (!input.trim()) return;
     console.log("Sending message:", input);
+    setMessages((prevMessages) => [...prevMessages, `You: ${input}`]);
+    setInput("");
     try {
-      const response = await fetch("http://localhost:3001/api/interrupt", {
+      const response = await fetch("/api/interrupt", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +102,6 @@ function ChatBox() {
       if (data.result) {
         // Add the response message to the chat display
         setMessages((prevMessages) => [...prevMessages, `GPT: ${data.result}`]);
-        setInput("");
       } else {
         console.error("Error sending message:", data.error);
       }

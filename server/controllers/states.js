@@ -5,6 +5,7 @@ const State = require("./state");
 const statesData = require("./productaddition.json");
 const stateList = [];
 
+
 statesData.forEach((state) => {
   const { script_url, event_description, llm_text, tags, script_duration } =
     state;
@@ -19,7 +20,7 @@ statesData.forEach((state) => {
 });
 console.log(stateList[0]);
 const currentState = stateList[0].event_description + ": " + stateList[0].tags.join(", ");
-const formattedStates = stateList.map((state) => `${state.event_description}: ${state.tags.join(", ")}`).join("\n");
+const formattedStates = stateList.map((state) => `${state.event_description}: ${state.tags.join(", ")} [ ${state.llm_text} ]`).join("\n");
 
 module.exports = {
     stateList,

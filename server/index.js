@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
 // const cors = require("cors");
-const { scriptPlayer } = require("./controllers/scriptPlayer");
+const scriptPlayer = require("./controllers/scriptPlayer");
 const gptController = require("./controllers/gpt");
 const productController = require("./controllers/product");
-const { connectToMongoDB } = require("./models");
+const { connectToMongoDB, createSampleData } = require("./models");
 
 const envPath = path.join(__dirname, "..", ".env");
 dotenv.config({ path: envPath });
@@ -112,6 +112,7 @@ app.post("/api/addEvent", async (req, res) => {
 // GPT API
 app.post("/api/messages", gptController.testGPT);
 app.post("/api/interrupt", gptController.interruptFunc);
+app.get("/api/dom-snapshot", scriptPlayer.getDomSnapshot);
 
 // DEMO SIDE
 app.get("/getProductWithEvents", async (req, res) => {
