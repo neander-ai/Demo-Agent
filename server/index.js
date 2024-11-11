@@ -71,6 +71,7 @@ app.get("/api/flows", productController.getFlows);
 // GPT API
 app.post("/api/messages", gptController.testGPT);
 app.post("/api/interrupt", gptController.interruptFunc);
+app.get("/api/dom-snapshot", scriptPlayer.getDomSnapshot);
 
 // DEMO SIDE
 app.get("/getProductWithEvents", async (req, res) => {
