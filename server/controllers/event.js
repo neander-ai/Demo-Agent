@@ -25,7 +25,6 @@ const addEvent = async (req, res, next) => {
       } 
       // get shopify product id for testing
       
-  
       // Create the event with the product ID
       const event = {
         name,

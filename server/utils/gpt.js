@@ -1,13 +1,7 @@
 const { ChatOpenAI } = require("@langchain/openai");
 const { HumanMessage, SystemMessage } = require("@langchain/core/messages");
 const { StringOutputParser } = require("@langchain/core/output_parsers");
-const dotenv = require("dotenv");
-const path = require("path");
-const { formattedStates, currentState } = require("./states");
-
-//TODO: FIX @ashpect
-const envPath = path.join(__dirname, "..", ".env");
-dotenv.config({ path: envPath });
+const { formattedStates, currentState } = require("../controllers/states");
 
 const parser = new StringOutputParser();
 const model = new ChatOpenAI({
@@ -53,6 +47,16 @@ const interruptFunc = async(req, res, next) => {
 const testGPT = async (req, res, next) => {
   try {
     const result = await callGPT(sysMessage, productDesc);
+    res.status(200).json({ result: result });
+  } catch (error) {
+    console.error("Error calling GPT:", error);
+    next(error);
+  }
+}
+
+const getLlmText = async (eventDesc) => {
+  try {
+    const result = await callGPT(sysMessage, eventDesc);
     res.status(200).json({ result: result });
   } catch (error) {
     console.error("Error calling GPT:", error);

@@ -5,9 +5,6 @@ const Company = require('./company');
 const Product = require('./product');
 const Event = require('./event');
 
-const envPath = path.join(__dirname, '..', '.env');
-dotenv.config({ path: envPath });
-
 const mongoURI = process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD
   ? `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`
   : `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`;

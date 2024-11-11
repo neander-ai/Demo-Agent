@@ -1,8 +1,6 @@
-const dotenv = require("dotenv");
 const path = require("path");
 const fs = require("fs");
-const envPath = path.join(__dirname, "..", ".env");
-dotenv.config({ path: envPath });
+
 const SCRIPTS = process.env.RRWEB_SCRIPTS_LOCATION;
 const scriptPlayer = (req, res) => {
   const flowName = req.body.flow;
