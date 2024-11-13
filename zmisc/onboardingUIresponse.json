@@ -1,0 +1,42 @@
+{
+    "partiton1": {
+        "scriptID1": {
+            "name": "scriptname1",
+            "heading": "clicking on add product",
+            "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page.",
+            "nextEventId": "scriptID2"
+        },
+        "scriptID2": {
+            "name": "scriptname2",
+            "heading": "clicking on add product",
+            "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page.",
+            "nextEventId": "scriptID3"
+        },
+        "scriptID3": {
+            "name": "scriptname3",
+            "heading": "clicking on add product",
+            "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page.",
+            "nextEventId": "scriptID69"
+        }
+    },
+    "partiton2": {
+        "scriptID69": {
+            "name": "scriptname1",
+            "heading": "clicking on add product",
+            "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page.",
+            "nextEventId": "scriptID2"
+        },
+        "scriptID2": {
+            "name": "scriptname2",
+            "heading": "clicking on add product",
+            "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page.",
+            "nextEventId": "scriptID2"
+        },
+        "scriptID3": {
+            "name": "scriptname3",
+            "heading": "clicking on add product",
+            "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page.",
+            "nextEventId": "scriptID2"
+        }
+    }
+}
