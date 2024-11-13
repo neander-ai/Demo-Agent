@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import GraphBuilder from './scriptGraph';
 
 const styles = {
@@ -37,15 +38,38 @@ const styles = {
 };
 
 function Onboarding() {
+  const [Data, setData] = useState({});
+
+  // useEffect(() => {
+  //   fetch('http://localhost:3001/api/onboarding/sampledatapoint')
+  //     .then(response => response.json())
+  //     .then(data => setData(data));
+  // }, []);
+  
   const sampleData = {
-    scripts: {
-      'script1': 'script1',
-      'script2': 'script2',
-      'script3': 'script3',
-      'script4': 'script4',
-      'script5': 'script5'
+        "scripts":{
+            "scriptID1": {
+                "name": "scriptname1",
+                "heading": "clicking on add product",
+                "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
+            },
+            "scriptID2": {
+                "name": "scriptname2",
+                "heading": "clicking on add product",
+                "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
+            },
+            "scriptID3": {
+                "name": "scriptname3",
+                "heading": "clicking on add product",
+                "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
+            },
+            "scriptID4": {
+                "name": "scriptname4",
+                "heading": "clicking on add product",
+                "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
+            }
+        }
     }
-  }
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Onboarding Page</h1>
