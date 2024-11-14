@@ -1,7 +1,6 @@
-const { createEvent, getEvent } = require("../models/event");
+const { createEvent, getAllEvents } = require("../models/event");
 const fs = require("fs");
 const path = require("path");
-const { getEventByNameAndPartition } = require("../models/event");
 
 const addEvent = async (req, res, next) => {
   try {
@@ -43,22 +42,15 @@ const addEvent = async (req, res, next) => {
   }
 };
 
-// Todo: Add get event function with script
-const getEventfromName = async (req, res, next) => {
+// Get event from name
+const getEventfromName = async (req, res) => {
   try {
-    const { name } = req.body;
-
-    if (!name) {
-      return res.status(400).json({ message: "Name is required" });
-    }
-
-    console.log("name is:", name);
-    const event = await getEvent(name);
-
-    if (!event) {
+    const events = await getAllEvents();
+    if (!events) {
       return res.status(404).json({ message: "Event not found" });
     }
-    res.status(200).json(event);
+    console.log(events.length);
+    res.status(200).json(events);
   } catch (error) {
     console.error("Error fetching the data:", error);
     res.status(500).json({ message: "Server error", error: error.message });

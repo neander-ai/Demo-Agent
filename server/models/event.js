@@ -34,18 +34,14 @@ const getEvent = async (eventName) => {
   return event;
 };
 
-const findOrCreateEvent = async (EventName) => {
-  let companyDoc = await Company.findOne({ name: companyName });
-  if (!companyDoc) {
-    companyDoc = new Company({ name: companyName });
-    await companyDoc.save();
-  }
-  return companyDoc;
+const getAllEvents = async () => {
+  const events = await Event.find({});
+  return events;
 };
 
 module.exports = {
   Event,
   createEvent,
-  findOrCreateEvent,
   getEvent,
+  getAllEvents,
 };

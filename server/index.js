@@ -1,5 +1,5 @@
 const express = require("express");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
@@ -16,8 +16,8 @@ dotenv.config({ path: envPath });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 
 app.listen(PORT, () => {

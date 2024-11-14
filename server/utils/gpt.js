@@ -7,7 +7,7 @@ const {
   SystemMessagePromptTemplate,
   HumanMessagePromptTemplate,
 } = require("@langchain/core/prompts");
-const { formattedStates, currentState } = require("../controllers/states");
+const { getAllStates } = require("../controllers/states");
 
 const responseSchema = z.object({
   name: z.string().describe("name of the event"),
@@ -46,13 +46,15 @@ const outputParser = new JsonOutputFunctionsParser();
 
 const chain = interrupt.pipe(functionCallingModel).pipe(outputParser);
 
+let currentState = null;
+let stateList = [];
+
 const interruptFunc = async (req, res, next) => {
   try {
     // This is called when user sends a message
     // Fetch the next RRWeb script along with its explanation
     const { message } = req.body;
     const result = await callGPT(message);
-    console.log("Result is:", result);
     res.status(200).json({ result: result });
   } catch (error) {
     console.error("Error calling GPT:", error);
@@ -63,7 +65,6 @@ const interruptFunc = async (req, res, next) => {
 const testGPT = async (req, res, next) => {
   try {
     const result = await callGPT(productDesc);
-    console.log("Result is:", result);
     res.status(200).json({ result: result });
   } catch (error) {
     console.error("Error calling GPT:", error);
@@ -71,16 +72,50 @@ const testGPT = async (req, res, next) => {
   }
 };
 
+const formatter = (stateList) => {
+  const formattedStates = stateList
+    .map(
+      (state) =>
+        `name: ${state.name}; tags: ${state.tags.join(", ")} [ ${
+          state.event_description
+        }]`
+    )
+    .join("\n");
+  return formattedStates;
+};
+
+const singleFormat = (currentState) => {
+  return `name: ${currentState.name}; tags: ${currentState.tags.join(", ")} [ ${
+    currentState.event_description
+  }]`;
+};
+
 const callGPT = async (humanMessage) => {
   try {
     console.log("Calling GPT");
+    const states = await getAllStates();
+    let formattedStates = null;
+    if (states) {
+      stateList = states;
+      formattedStates = formatter(stateList);
+      currentState = stateList[0];
+    }
     const res = await chain.invoke({
       formattedStates: formattedStates,
-      currentState: currentState,
+      currentState: singleFormat(currentState),
       description: humanMessage,
     });
+    console.log(res);
 
-    console.log(JSON.stringify(res));
+    const matchedState = stateList.find((state) => state.name === res.name);
+
+    if (matchedState) {
+      currentState = matchedState;
+    } else {
+      // Leave currentState as is if no match is found
+      console.log("No matching state found. Retaining the current state.");
+    }
+
     return res;
   } catch (error) {
     console.error("Error calling GPT:", error);
