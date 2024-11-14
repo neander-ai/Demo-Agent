@@ -50,22 +50,22 @@ function Onboarding() {
         "scripts":{
             "scriptID1": {
                 "name": "scriptname1",
-                "heading": "clicking on add product",
+                "heading": "clicking on add product1",
                 "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
             },
             "scriptID2": {
                 "name": "scriptname2",
-                "heading": "clicking on add product",
+                "heading": "clicking on add product2",
                 "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
             },
             "scriptID3": {
                 "name": "scriptname3",
-                "heading": "clicking on add product",
+                "heading": "clicking on add product3",
                 "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
             },
             "scriptID4": {
                 "name": "scriptname4",
-                "heading": "clicking on add product",
+                "heading": "clicking on add product4",
                 "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
             }
         }
