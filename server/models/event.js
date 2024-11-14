@@ -1,9 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const eventSchema = new mongoose.Schema({
   name: String,
   partition: String,
-  nextEventId: { type: mongoose.Schema.Types.Mixed, ref: 'Event', default: null },
+  nextEventId: {
+    type: mongoose.Schema.Types.Mixed,
+    ref: "Event",
+    default: null,
+  },
   event_heading: String,
   event_description: String,
   llm_text: { type: String, default: null },
@@ -12,16 +16,21 @@ const eventSchema = new mongoose.Schema({
   video_duration: String,
   audio_data: { type: mongoose.Schema.Types.Mixed, default: null },
   audio_duration: String,
-  product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+  product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
 });
 
 eventSchema.index({ product: 1 });
-const Event = mongoose.model('Event', eventSchema);
-
+const Event = mongoose.model("Event", eventSchema);
 
 const createEvent = async (eventData, productId) => {
   const event = new Event({ ...eventData, product: productId });
   await event.save();
+  return event;
+};
+
+const getEvent = async (eventName) => {
+  const event = await Event.findOne({ name: eventName });
+  console.log(event);
   return event;
 };
 
@@ -37,5 +46,6 @@ const findOrCreateEvent = async (EventName) => {
 module.exports = {
   Event,
   createEvent,
-  findOrCreateEvent
+  findOrCreateEvent,
+  getEvent,
 };

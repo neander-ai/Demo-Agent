@@ -7,20 +7,20 @@ function DomRenderer() {
   const [script, setScript] = useState(null);
   const playerContainerRef = useRef(null);
 
-  // useEffect(() => {
-  //   const fetchScript = async () => {
-  //     try {
-  //       const response = await fetch("/api/dom-snapshot");
-  //       const rrwebScript = await response.json();
+  useEffect(() => {
+    const fetchScript = async () => {
+      try {
+        const response = await fetch("/api/initial-dom-snapshot");
+        const rrwebScript = await response.json();
 
-  //       setScript(rrwebScript);
-  //     } catch (error) {
-  //       console.error("Failed to fetch or play rrweb script:", error);
-  //     }
-  //   };
+        setScript(rrwebScript);
+      } catch (error) {
+        console.error("Failed to fetch or play rrweb script:", error);
+      }
+    };
 
-  //   fetchScript();
-  // }, []);
+    fetchScript();
+  }, []);
 
   useEffect(() => {
     // Fetch and play rrweb script

@@ -68,10 +68,12 @@ app.post("/api/addEvent", eventController.addEvent);
 
 app.get("/api/flows", productController.getFlows);
 
+app.post("/api/events", eventController.getEventfromName);
+
 // GPT API
 app.post("/api/messages", gptController.testGPT);
 app.post("/api/interrupt", gptController.interruptFunc);
-app.get("/api/dom-snapshot", scriptController.getDomSnapshot);
+app.get("/api/initial-dom-snapshot", scriptController.getDomSnapshot);
 
 // DEMO SIDE
 app.get("/getProductWithEvents", async (req, res) => {
