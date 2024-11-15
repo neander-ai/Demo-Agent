@@ -3,50 +3,51 @@ import rrwebPlayer from "rrweb-player";
 import "rrweb-player/dist/style.css";
 
 // Component to render rrweb DOM content
-function DomRenderer({ script, setScript }) {
-  const playerContainerRef = useRef(null);
-  const playerRef = useRef(null);
-
-  useEffect(() => {
-    const fetchScript = async () => {
-      try {
-        const response = await fetch("/api/initial-dom-snapshot");
-        const rrwebScript = await response.json();
-        console.log(rrwebScript);
-
-        setScript(rrwebScript);
-      } catch (error) {
-        console.error("Failed to fetch or play rrweb script:", error);
-      }
-    };
-
-    fetchScript();
-  }, []);
-
-  useEffect(() => {
-    if (!script) return;
-
-    if (playerRef.current) {
-      playerContainerRef.current = null;
+function DomRendererContainer({script, setScript}) {
+useEffect(() => {
+  const fetchScript = async () => {
+    try {
+      const response = await fetch("/api/initial-dom-snapshot");
+      const rrwebScript = await response.json();
+      setScript(rrwebScript);
+    } catch (error) {
+      console.error("Failed to fetch or play rrweb script:", error);
     }
-    playerRef.current = new rrwebPlayer({
-      target: playerContainerRef.current,
-      props: { events: script },
-    }).toggleSkipInactive(false);
-    // fetchAndPlayRrwebScript();
-  }, [script]);
+  };
 
-  return (
-    <div
-      ref={playerContainerRef}
-      style={{
-        border: "1px solid black",
-        padding: "10px",
-        height: "100%",
-        overflow: "auto",
-      }}
-    />
-  );
+  fetchScript();
+}, []);
+
+// Use script as key to force remount when script changes
+return <DomRenderer key={JSON.stringify(script)} script={script} />;
+}
+
+// Inner component that handles the player
+function DomRenderer({ script }) {
+const containerRef = useRef(null);
+const playerRef = useRef(null);
+
+useEffect(() => {
+  if (!script || !containerRef.current) return;
+
+  playerRef.current = new rrwebPlayer({
+    target: containerRef.current,
+    props: { events: script }
+  });
+  playerRef.current.toggleSkipInactive(false);
+}, []); // Only run once on mount since we remount on script changes
+
+return (
+  <div
+    ref={containerRef}
+    style={{
+      border: "1px solid black",
+      padding: "10px",
+      height: "100%",
+      overflow: "auto",
+    }}
+  />
+);
 }
 
 // Simple chatbox component
@@ -149,7 +150,7 @@ function Demo() {
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       <div style={{ flex: 3, padding: "10px" }}>
-        <DomRenderer script={script} setScript={setScript} />
+        <DomRendererContainer script={script} setScript={setScript} />
       </div>
       <div
         style={{ flex: 1, padding: "10px", borderLeft: "1px solid lightgray" }}
