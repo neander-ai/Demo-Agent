@@ -1,0 +1,24 @@
+{
+    "scripts":{
+        "scriptID1": {
+            "name": "scriptname1",
+            "heading": "clicking on add product",
+            "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
+        },
+        "scriptID2": {
+            "name": "scriptname1",
+            "heading": "clicking on add product",
+            "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
+        },
+        "scriptID3": {
+            "name": "scriptname1",
+            "heading": "clicking on add product",
+            "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
+        },
+        "scriptID4": {
+            "name": "scriptname1",
+            "heading": "clicking on add product",
+            "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
+        }
+    }
+}
