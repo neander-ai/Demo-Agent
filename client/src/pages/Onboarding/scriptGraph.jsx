@@ -24,6 +24,8 @@ const GraphContainer = styled.div`
   width: 80%;
   height: 80%;
   background: #1e1e2f;
+  display: flex;
+  flex-direction: row;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
@@ -46,6 +48,7 @@ const GraphBuilder = ({ scriptData }) => {
   const [colourRot, setColourRot] = useState(0);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [currentNode, setCurrentNode] = useState(null);
 
   const getRandomColor = () => {
     const colors = ['#FF6B6B', '#FFA500', '#8E44AD', '#2980B9', '#27AE60'];
@@ -56,7 +59,8 @@ const GraphBuilder = ({ scriptData }) => {
     id: key,
     data: { 
       label: scriptData.scripts[key].name, 
-      description: scriptData.scripts[key].heading 
+      description: scriptData.scripts[key].description,
+      heading: scriptData.scripts[key].heading 
     },
     position: { x: Math.random() * 250, y: Math.random() * 250 },
     draggable: true,
@@ -184,7 +188,39 @@ const GraphBuilder = ({ scriptData }) => {
       .catch(error => console.error(error));
   }
 
+  const handleHover = (event, node) => {
+    setCurrentNode(node);
+  }
+
+  const handleHoverExit = () => {
+    setCurrentNode(null);
+  }
+  
+  const DisplayPanel = ({ node }) => {
+    if (!node) return null;
+
+    return (
+      <div style={{
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        background: '#333',
+        color: '#fff',
+        padding: '20px',
+        borderRadius: '8px',
+        boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+        maxWidth: '300px',
+        zIndex: 10,
+      }}>
+        <h3 style={{ margin: '0 0 10px 0' }}>{node.data.label}</h3>
+        <p style={{ margin: '0 0 5px 0' }}><strong>Description:</strong> {node.data.description}</p>
+        <p style={{ margin: '0' }}><strong>Heading:</strong> {node.data.heading}</p>
+      </div>
+    );
+  };
+
   return (
+    <>
     <Container>
       <h1>Script Graph</h1>
       {showError && <ErrorMessage>{errorMessage}</ErrorMessage>}
@@ -198,6 +234,9 @@ const GraphBuilder = ({ scriptData }) => {
           onNodeClick={onNodeClick}
           nodesDraggable
           nodesConnectable
+          className="node"
+          onNodeMouseEnter={handleHover}
+          onNodeMouseLeave={handleHoverExit}
         >
           <MiniMap 
             nodeColor={node => node.style?.background || '#fff'}
@@ -208,7 +247,9 @@ const GraphBuilder = ({ scriptData }) => {
         </ReactFlow>
       </GraphContainer>
       <button onClick={handleClick}>Click to Send</button>
+      <DisplayPanel node={currentNode} />
     </Container>
+    </>
     
   );
 };
