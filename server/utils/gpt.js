@@ -116,7 +116,10 @@ const callGPT = async (humanMessage) => {
       console.log("No matching state found. Retaining the current state.");
     }
 
-    return res;
+    return {
+      description: res.description,
+      video_data: currentState.video_data,
+    };
   } catch (error) {
     console.error("Error calling GPT:", error);
     throw error;

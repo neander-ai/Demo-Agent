@@ -3,15 +3,16 @@ import rrwebPlayer from "rrweb-player";
 import "rrweb-player/dist/style.css";
 
 // Component to render rrweb DOM content
-function DomRenderer() {
-  const [script, setScript] = useState(null);
+function DomRenderer({ script, setScript }) {
   const playerContainerRef = useRef(null);
+  const playerRef = useRef(null);
 
   useEffect(() => {
     const fetchScript = async () => {
       try {
         const response = await fetch("/api/initial-dom-snapshot");
         const rrwebScript = await response.json();
+        console.log(rrwebScript);
 
         setScript(rrwebScript);
       } catch (error) {
@@ -23,19 +24,15 @@ function DomRenderer() {
   }, []);
 
   useEffect(() => {
-    // Fetch and play rrweb script
-    // const fetchAndPlayRrwebScript = async () => {
-    //   try {
-
-    //   } catch (error) {
-    //     console.error("Failed to fetch or play rrweb script:", error);
-    //   }
-    // };
     if (!script) return;
-    new rrwebPlayer({
+
+    if (playerRef.current) {
+      playerContainerRef.current = null;
+    }
+    playerRef.current = new rrwebPlayer({
       target: playerContainerRef.current,
       props: { events: script },
-    });
+    }).toggleSkipInactive(false);
     // fetchAndPlayRrwebScript();
   }, [script]);
 
@@ -53,7 +50,7 @@ function DomRenderer() {
 }
 
 // Simple chatbox component
-function ChatBox() {
+function ChatBox({ setScript }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
@@ -71,8 +68,9 @@ function ChatBox() {
         const data = await response.json();
         console.log("Response received");
         console.log(data);
-        if (data.result) {
-          setMessages([data.result]);
+        if (data.description) {
+          setMessages(data.result.description);
+          setScript(data.video_data); // Update the rrweb script with the new messages
         } // Assuming server response { messages: ["msg1", "msg2"] }
       } catch (error) {
         console.error("Error fetching messages:", error);
@@ -101,7 +99,13 @@ function ChatBox() {
 
       if (data.result) {
         // Add the response message to the chat display
-        setMessages((prevMessages) => [...prevMessages, `GPT: ${data.result}`]);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          `GPT: ${data.result.description}`,
+        ]);
+
+        console.log("Sending message:", JSON.parse(data.result.video_data));
+        setScript(JSON.parse(data.result.video_data));
       } else {
         console.error("Error sending message:", data.error);
       }
@@ -141,15 +145,16 @@ function ChatBox() {
 
 // Main layout component
 function Demo() {
+  const [script, setScript] = useState("");
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       <div style={{ flex: 3, padding: "10px" }}>
-        <DomRenderer />
+        <DomRenderer script={script} setScript={setScript} />
       </div>
       <div
         style={{ flex: 1, padding: "10px", borderLeft: "1px solid lightgray" }}
       >
-        <ChatBox />
+        <ChatBox setScript={setScript} />
       </div>
     </div>
   );

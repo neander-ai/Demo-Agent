@@ -15,6 +15,9 @@ if (process.env.MONGODB_URL) {
   mongoURI = `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`;
 }
 
+mongoURI =
+  "mongodb://khushal2004agrawal:1234567890@cluster0-shard-00-00.5ezkb.mongodb.net:27017,cluster0-shard-00-01.5ezkb.mongodb.net:27017,cluster0-shard-00-02.5ezkb.mongodb.net:27017/?ssl=true&replicaSet=atlas-k2zp20-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0";
+
 const connectToMongoDB = async () => {
   try {
     await mongoose.connect(mongoURI, {
