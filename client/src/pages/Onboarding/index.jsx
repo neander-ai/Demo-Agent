@@ -47,29 +47,64 @@ function Onboarding() {
   // }, []);
   
   const sampleData = {
-        "scripts":{
-            "scriptID1": {
-                "name": "scriptname1",
-                "heading": "clicking on add product1",
-                "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
-            },
-            "scriptID2": {
-                "name": "scriptname2",
-                "heading": "clicking on add product2",
-                "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
-            },
-            "scriptID3": {
-                "name": "scriptname3",
-                "heading": "clicking on add product3",
-                "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
-            },
-            "scriptID4": {
-                "name": "scriptname4",
-                "heading": "clicking on add product4",
-                "description": "Click on products tab on the left hand side and then click on add products button on the top right corner of the page. Wait for redirect to the product addition page."
-            }
-        }
+    "scripts": {
+      "scriptID1": {
+        name: 'Explore web design page',
+        heading: 'Explore the web design page',
+        description: 'Explore the web design page and start designing'
+      },
+      "scriptID2": {
+        name: 'Signup',
+        heading: 'Signup creating a new account',
+        description: 'Signup by adding your details'
+      },
+      "scriptID3": {
+        name: 'Look for templates',
+        heading: 'Template searching',
+        description: 'Look for templates and select one you like'
+      },
+      "scriptID4": {
+        name: 'Logging In',
+        heading: 'Logging to the wix account',
+        description: 'Logging into the wix page to get things working'
+      },
+      // "scriptID5": {
+      //   "name": "select countries to apply discount",
+      //   "heading": "select countries to apply discount",
+      //   "description": "Click on selected countries radius button and an input text box opens up. Clicking on it opens up a dialog box and select the countries you want to apply the discount by typing into input text box the name of the country and autocompleting it out",
+      // },
+      // "scriptID6": {
+      //   "name": "input minimum purchase amount",
+      //   "heading": "input minimum purchase amount",
+      //   "description": "click on minimum purchase amount radius button and then in the input box that opens up, type out the minimum purchase amount you want to apply the discount on.",
+        
+      // },
+      // "scriptID7": {
+      //   "name": "select customer segments",
+      //   "heading": "select customer segments",
+      //   "description": "Under customer eligibility section, click on adding specific customer segments and then select the required customer segment. Customer segments are things like 'Email Subscribers' or 'Customers who have purchased atleast once' or 'Customers who have spent more than $1000'.",
+        
+      // },
+      // "scriptID8": {
+      //   "name": "add limit on discount uses",
+      //   "heading": "add limit on discount uses",
+      //   "description": "Under maximum discount uses section, click on the check box to 'add limit on maximum number of uses per customer'. Then an input box opens up and you can type in the maximum number of uses per customer.",
+        
+      // },
+      // "scriptID9": {
+      //   "name": "set an end date for discount",
+      //   "heading": "set an end date for discount",
+      //   "description": "Under active dates section, click on set end date check box and click on end date 'date selector' and select date, do the same for time.",
+        
+      // },
+      // "scriptID10": {
+      //   "name": "click on save button for discount",
+      //   "heading": "click on save button for discount",
+      //   "description": "Click on save discount button at the bottom right corner of the page and wait for the discount to be created.",
+        
+      // }
     }
+  }
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Onboarding Page</h1>
