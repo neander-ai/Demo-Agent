@@ -1,26 +1,36 @@
 const State = require("./state");
-const statesData = require("./productaddition.json");
-const stateList = [];
-
-
-statesData.forEach((state) => {
-  const { script_url, event_description, llm_text, tags, script_duration } =
-    state;
-  const newState = new State(
-    script_url,
-    event_description,
-    llm_text,
-    tags,
-    script_duration
-  );
-  stateList.push(newState);
-});
-console.log(stateList[0]);
-const currentState = stateList[0].event_description + ": " + stateList[0].tags.join(", ");
-const formattedStates = stateList.map((state) => `${state.event_description}: ${state.tags.join(", ")} [ ${state.llm_text} ]`).join("\n");
+const { getAllEvents } = require("../models/event");
+let stateList = [];
+const getAllStates = async () => {
+  console.log("Get all states called");
+  if (stateList.length == 0) {
+    const events = await getAllEvents();
+    events.forEach((event) => {
+      const {
+        name,
+        partition,
+        nextEventId,
+        event_heading,
+        event_description,
+        tags,
+        video_data,
+      } = event;
+      const newState = new State(
+        name,
+        partition,
+        nextEventId,
+        event_heading,
+        event_description,
+        tags,
+        video_data
+      );
+      stateList.push(newState);
+    });
+    return stateList;
+  }
+  return null;
+};
 
 module.exports = {
-    stateList,
-    currentState,
-    formattedStates,
+  getAllStates,
 };

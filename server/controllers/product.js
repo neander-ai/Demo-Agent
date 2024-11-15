@@ -21,6 +21,8 @@ const addProduct = async (req, res, next) => {
   }
 };
 
+// Todo: Add get all event function
+
 //TODO: get this in DB
 const getFlows = async (req, res, next) => {
   try {
